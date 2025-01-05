@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 using namespace std;
 /*
@@ -190,7 +191,7 @@ int main(int argc, char** argv) {
 	
 	cout<<"Enter your choice:";
 	cin>>choice;
-	
+	system("clear");	
 	switch(choice){
 		case 1:
 			getData(s,n);
