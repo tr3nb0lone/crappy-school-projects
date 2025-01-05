@@ -3,6 +3,8 @@
 
 using namespace std;
 /*
+
+ Mini project in cpp to demonstrate the simplest and functional concepts in CPP:
 1. Registering records on a file
 2.Displaying all records from a file
 3. Searching for a record
@@ -20,13 +22,11 @@ struct student{
 	char firstName[30];
 	int age;
 	Address address;
-	
 };
 
 void searchStudentById(char* fileName,int id){
-	
+
 		ifstream in(fileName,ios::binary);
-		
 		student s;
 		
 		if(in.is_open()){
@@ -44,39 +44,32 @@ void searchStudentById(char* fileName,int id){
 				else    	
 				  in.read((char*)&s,sizeof(s));	
 			}
-		
 		in.close();
 		cout<<"The student is not found.\n";
 	}else{
 		cout<<"File cannot be opened.\n";
-	}
-	
-	
-	
+   }
 }
 void displayAlltudents(char* fileName){
+
 		ifstream in(fileName,ios::binary);
-		
 		student s;
-		
+
 		if(in.is_open()){
 			in.read((char*)&s,sizeof(s));
 		    while(!in.eof()){
-		    	
-		    	
-		    	
-				cout<<s.id<<"\t"<<s.firstName;
-				cout<<"\t"<<s.age<<"\t";
-				cout<<s.address.kk<<"\t";
-				cout<<s.address.woreda<<endl;
-				in.read((char*)&s,sizeof(s));	
-			}
+
+		cout<<s.id<<"\t"<<s.firstName;
+		cout<<"\t"<<s.age<<"\t";
+		cout<<s.address.kk<<"\t";
+		cout<<s.address.woreda<<endl;
+		in.read((char*)&s,sizeof(s));	
+		}
 		
 		in.close();
 	}else{
-		cout<<"File cannot be opened.\n";
+		cout<<"File could not be opened!\n";
 	}
-	
 }
 void getData(student s[],int &n){
 	cout<<"How many students do you want to register?";
@@ -150,7 +143,7 @@ void editStudentById(char* fileName,int id){
 	  	 	cin>>s.address.woreda;
 	  	 	
 	  	 	out.write((char*)&s,sizeof(s));
-		   }
+         	 }
 		   else{
 		   	out.write((char*)&s,sizeof(s));
 		   }
