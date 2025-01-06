@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <cstdlib> 
@@ -69,14 +70,14 @@ void registerMeds(char* fileName,Medicine m[],int n){
       }
 }
 
-void searchMed(char* fileName, int ID){
+void searchMed(char* fileName, int id){
 	ifstream in(fileName, ios::binary);
 	Medicine m;
 // search for the mediciine based on the input ID	
 	if (in.is_open()) {
 		in.read((char*)&m,sizeof(m));
 		while (!in.eof()) {
-			if(m.ID=m.ID){
+			if(m.ID=id){
 				cout<<"Medicine is found!\n";
 				cout<<m.ID<<"\t"<<m.category<<"\t";
 				cout<<m.usage.period<<"  "<<m.usage.frequency<<"  "<<m.usage.directions;
@@ -96,7 +97,7 @@ void searchMed(char* fileName, int ID){
 
 
 void displayInventory(char* fileName){
-
+// display the entire inventory read from the .db file created:
 	ifstream in(fileName, ios::binary);
 	Medicine m;
 	if(in.is_open()){
@@ -114,7 +115,43 @@ void displayInventory(char* fileName){
 }
 
 
+void editMed(char* fileName, int id){
 
+	char* tempFile = "tempFile.db";
+	ofstream out(tempFile, ios::binary);
+	ifstream in(fileName, ios::binary);
+
+	Medicine m;
+	in.read((char*)&m,sizeof(m));
+	while(!in.eof()){
+        	if(m.ID=id){
+                cout<<"Enter the newest ID of the medicine:  ";
+		cin>>m.ID;
+		cout<<"Enter the new category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
+		cin>>m.category;
+		cout<<"Enter the new usage (Period, Frequency and Directions) of the medicine:  ";
+		cin>>m.usage.period;
+		cout<<"Enter the new frequency for the usage (Once, 2-times OR 3-times):  ";
+		cin>>m.usage.frequency;
+		cout<<"Enter the new directions of use (Oral, Nasal, Intravenous or Injection):  ";
+		cin>>m.usage.directions;
+		cout<<"Enter the newer expiry date of the drug:  ";
+		cin>>m.date.day;
+		cout<<"Enter the expiry month of the drug:  ";
+		cin>>m.date.month;
+		cout<<"Enter the expiry year of the drug:  ";
+		cin>>m.date.year;
+			out.write((char*)&m, sizeof(m));
+	}else {
+			out.write((char*)&m, sizeof(m));
+	}
+		in.read((char*)&m, sizeof(m));
+    } 
+  		  in.close();
+		  out.close();
+		  remove(fileName);
+	 	  rename(tempFile,fileName);
+}
 
 
 int main(){
@@ -125,19 +162,31 @@ Medicine m[100];
 int n;
 char* fileName="inventory.db";
 
-do{
-// enter the menu:
- cout<<"Please enter your choice of action: \n";
+ do{
+ // enter the menu:
+ cout<<"\nPlease enter your choice of action:  ";
  cin>>choice;
 switch(choice){
 		case 1:
-		 getInfo(m,n);
- 		 registerMeds(fileName,m,n);
-		 break;
+	                getInfo(m,n);
+ 		        registerMeds(fileName,m,n);
+		        break;
 		case 2:
 			displayInventory(fileName);
+			break;
+		case 3:
+			int id;
+			cout<<"Enter the ID of the medicine you are looking for:  ";
+			cin>>id;
+			searchMed(fileName, id);
+			break;
+		case 4:
+			cout<<"Enter the ID of the medicine you are looking to modify:  ";
+			cin>>id;
+			editMed(fileName, id);
+			break;
 	}	
-      } while(ans != 'n');
+      }while(ans != 'n');
 
 return 0;
 }

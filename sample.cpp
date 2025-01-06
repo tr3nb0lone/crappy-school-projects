@@ -155,8 +155,6 @@ void editStudentById(char* fileName,int id){
 	  remove(fileName);
 	  rename(fileTemp,fileName);
 	
-	
-	
 }
 void registerStudents(char* fileName,student s[],int n){
 	
