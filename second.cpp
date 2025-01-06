@@ -95,9 +95,29 @@ void searchMed(char* fileName, int ID){
 }
 
 
+void displayInventory(char* fileName){
+
+	ifstream in(fileName, ios::binary);
+	Medicine m;
+	if(in.is_open()){
+		in.read((char*)&m,sizeof(m));
+	while(!in.eof()){
+		cout<<m.ID<<"\t"<<m.category<<"\t";
+		cout<<m.usage.period<<"  "<<m.usage.frequency<<"  "<<m.usage.directions;
+		cout<<m.date.year<<endl;
+		in.read((char*)&m,sizeof(m));	
+	}
+		in.close();
+	} else{
+		cout<<"File could not be opened!\n";
+	}
+}
 
 
-int main() {
+
+
+
+int main(){
 
 char ans;
 int choice;
@@ -112,8 +132,10 @@ do{
 switch(choice){
 		case 1:
 		 getInfo(m,n);
-		 registerMeds(fileName,m,n);
-		   break;
+ 		 registerMeds(fileName,m,n);
+		 break;
+		case 2:
+			displayInventory(fileName);
 	}	
       } while(ans != 'n');
 
