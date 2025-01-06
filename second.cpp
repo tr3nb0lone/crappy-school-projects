@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <cstdlib> 
@@ -150,7 +149,7 @@ void editMed(char* fileName, int id){
   		  in.close();
 		  out.close();
 		  remove(fileName);
-	 	  rename(tempFile,fileName);
+	 	  rename(tempFile, fileName);
 }
 
 
@@ -190,4 +189,3 @@ switch(choice){
 
 return 0;
 }
-
