@@ -35,23 +35,23 @@ void getInfo(Medicine m[], int &n){
 	cin>>n;
 	
 	for(int i=0; i<n; i++){
-		cout<<"Enter the unique ID of the medicinei\n";
-		cin>>m[i].ID;
-		cout<<"Enter the category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller)\n";
-		cin>>m[i].category;
-		cout<<"Enter the usage (Period, Frequency and Directions) of the medicine\n";
-		cin>>m[i].usage.period;
-		cout<<"Enter the frequency for the usage (Once, 2-times OR 3-times)\n";
-		cin>>m[i].usage.frequency;
-		cout<<"Enter the directions of use (Oral, Nasal, Intravenous or Injection)\n";
-		cin>>m[i].usage.directions;
-		cout<<"Enter the expiry date of the drug:\n";
-		cin>>m[i].date.day;
-		cout<<"Enter the expiry month of the drug:\n";
-		cin>>m[i].date.month;
-		cout<<"Enter the expiry year of the drug:\n";
-		cin>>m[i].date.year;
 
+		cout<<"Enter the unique ID of the medicine:  ";
+		cin>>m[i].ID;
+		cout<<"Enter the category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
+		cin>>m[i].category;
+		cout<<"Enter the usage (Period, Frequency and Directions) of the medicine:  ";
+		cin>>m[i].usage.period;
+		cout<<"Enter the frequency for the usage (Once, 2-times OR 3-times):  ";
+		cin>>m[i].usage.frequency;
+		cout<<"Enter the directions of use (Oral, Nasal, Intravenous or Injection):  ";
+		cin>>m[i].usage.directions;
+		cout<<"Enter the expiry date of the drug:  ";
+		cin>>m[i].date.day;
+		cout<<"Enter the expiry month of the drug:  ";
+		cin>>m[i].date.month;
+		cout<<"Enter the expiry year of the drug:  ";
+		cin>>m[i].date.year;
 	}
 }
 
@@ -111,8 +111,8 @@ do{
  cin>>choice;
 switch(choice){
 		case 1:
-		// getInfo(m,n);
-		// registerMed;
+		 getInfo(m,n);
+		 registerMeds(fileName,m,n);
 		   break;
 	}	
       } while(ans != 'n');
