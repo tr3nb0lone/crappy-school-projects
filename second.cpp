@@ -46,11 +46,11 @@ void getInfo(Medicine m[], int &n){
 		cin>>m[i].usage.frequency;
 		cout<<"Enter the directions of use (Oral, Nasal, Intravenous or Injection):  ";
 		cin>>m[i].usage.directions;
-		cout<<"Enter the expiry date of the drug:  ";
+		cout<<"Enter the expiry DATE of the drug:  ";
 		cin>>m[i].date.day;
-		cout<<"Enter the expiry month of the drug:  ";
+		cout<<"Enter the expiry MONTH of the drug:  ";
 		cin>>m[i].date.month;
-		cout<<"Enter the expiry year of the drug:  ";
+		cout<<"Enter the expiry YEAR of the drug:  ";
 		cin>>m[i].date.year;
 	}
 }
@@ -80,7 +80,7 @@ void searchMedicine(char* fileName, int id){
 				cout<<"Medicine is found!\n";
 				cout<<m.ID<<"\t"<<m.category<<"\t";
 				cout<<m.usage.period<<"\t"<<m.usage.frequency<<"\t"<<m.usage.directions;
-				cout<<m.date.year<<endl;
+				cout<<"\t"<<m.date.year<<endl;
 				in.close();
 				return;
 			}
@@ -204,11 +204,19 @@ Medicine m[100];
 int n;
 char* fileName="inventory.db";
 
- do{
- // enter the menu:
- cout<<"\nPlease enter your choice of action:  ";
- cin>>choice;
-switch(choice){
+    do{
+	cout<<"=============================== MENU ===============================\n";
+	cout<<"\t\tPharmacy Inventory Management System: \n";
+	cout<<"\tEnter 1 to register a new medicine.\n";
+	cout<<"\tEnter 2 to display entries of the Inventory.\n";
+	cout<<"\tEnter 3 to search pre-existing medicine.\n";
+	cout<<"\tEnter 4 to edit a Medicine's record.\n";
+	cout<<"\tEnter 5 to Delete an entry from the Inventory.\n";
+	cout<<"============================== ~~~~~~ ==============================\n";
+	cout<<"Please enter your choice of action:  ";
+	cin>>choice;
+	system("clear");
+        switch(choice){
 		case 1:
 	                getInfo(m,n);
  		        registerMedicine(fileName,m,n);
@@ -225,8 +233,10 @@ switch(choice){
 		case 4:
 			editMedicine(fileName);
 			break;
-		}	
-      }while(ans != 'n');
+		}
+		cout<<"Do you want to continue? (Y)es/(N)o  ";
+		cin>>ans;
+      }while(ans != 'n' && ans != 'N');
 
 return 0;
 
