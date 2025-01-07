@@ -1,3 +1,4 @@
+#include <ios>
 #include <iostream>
 #include <fstream>
 #include <cstdlib> 
@@ -114,43 +115,87 @@ void displayInventory(char* fileName){
 }
 
 
-void editMed(char* fileName, int id){
+
+
+void editMed(char *filePath){
+	
+	fstream file(filePath,ios::binary | ios::out | ios::in);
+	int id;
+	
+	Medicine m;
+	Medicine m1;
+	cout<<"Enter id of the medicine you want to edit:  ";
+     	cin>>m1.ID;
+	if(file.is_open()){
+	
+		while(file.read((char*)&m,sizeof(m))){
+		if(m1.ID==m.ID){
+		cout<<"Enter the newest ID of the medicine:  ";
+		cin>>m1.ID;
+		cout<<"Enter the new category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
+		cin>>m1.category;
+		cout<<"Enter the new usage (Period, Frequency and Directions) of the medicine:  ";
+		cin>>m1.usage.period;
+		cout<<"Enter the new frequency for the usage (Once, 2-times OR 3-times):  ";
+		cin>>m1.usage.frequency;
+		cout<<"Enter the new directions of use (Oral, Nasal, Intravenous or Injection):  ";
+		cin>>m1.usage.directions;
+		cout<<"Enter the newer expiry date of the drug:  ";
+		cin>>m1.date.day;
+		cout<<"Enter the expiry month of the drug:  ";
+		cin>>m1.date.month;
+		cout<<"Enter the expiry year of the drug:  ";
+		cin>>m1.date.year;
+	
+
+			 file.seekp(file.tellg()-sizeof(m1),ios::beg);
+				file.write((char*)&m1,sizeof(m1));
+				file.close();
+				cout<<"Record is sucessfully updated.\n"; 
+				break;
+			}
+			
+		}
+		
+		file.close();
+	}else{
+		cout<<"File cannot be opened.\n";
+	}
+	
+}
+
+
+
+void deleteMed(char* fileName, int id){
 
 	char* tempFile = "tempFile.db";
 	ofstream out(tempFile, ios::binary);
 	ifstream in(fileName, ios::binary);
 
 	Medicine m;
+
 	in.read((char*)&m,sizeof(m));
-	while(!in.eof()){
-        	if(m.ID=id){
-                cout<<"Enter the newest ID of the medicine:  ";
-		cin>>m.ID;
-		cout<<"Enter the new category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
-		cin>>m.category;
-		cout<<"Enter the new usage (Period, Frequency and Directions) of the medicine:  ";
-		cin>>m.usage.period;
-		cout<<"Enter the new frequency for the usage (Once, 2-times OR 3-times):  ";
-		cin>>m.usage.frequency;
-		cout<<"Enter the new directions of use (Oral, Nasal, Intravenous or Injection):  ";
-		cin>>m.usage.directions;
-		cout<<"Enter the newer expiry date of the drug:  ";
-		cin>>m.date.day;
-		cout<<"Enter the expiry month of the drug:  ";
-		cin>>m.date.month;
-		cout<<"Enter the expiry year of the drug:  ";
-		cin>>m.date.year;
-			out.write((char*)&m, sizeof(m));
-	}else {
-			out.write((char*)&m, sizeof(m));
-	}
-		in.read((char*)&m, sizeof(m));
-    } 
-  		  in.close();
-		  out.close();
-		  remove(fileName);
-	 	  rename(tempFile, fileName);
-}
+	int flag=0;
+	  while(!in.eof()){
+	  	 if(m.ID!=id){
+	  	 	out.write((char*)&m,sizeof(m));
+		   }
+		   
+		   if(m.ID==id)
+		     flag=1;
+		in.read((char*)&m,sizeof(m));
+	  }
+	  in.close();
+	  out.close();
+	  remove(fileName);
+	  rename(tempFile,fileName);
+	
+	if(flag==1)
+	   cout<<"Medicine record for ID "<<m.ID<< " is deleted successfully!.\n";
+	else
+	    cout<<"No such record.\n";
+	  
+} 
 
 
 int main(){
@@ -180,9 +225,7 @@ switch(choice){
 			searchMed(fileName, id);
 			break;
 		case 4:
-			cout<<"Enter the ID of the medicine you are looking to modify:  ";
-			cin>>id;
-			editMed(fileName, id);
+			editMed(fileName);
 			break;
 	}	
       }while(ans != 'n');
