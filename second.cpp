@@ -32,11 +32,10 @@ struct Medicine{
 
 
 void getInfo(Medicine m[], int &n){
-	cout<<"How many medicine(s) do you want to insert into the inventory?\n";
+	cout<<"How many medicine(s) do you want to insert into the inventory?  ";
 	cin>>n;
 	
 	for(int i=0; i<n; i++){
-
 		cout<<"Enter the unique ID of the medicine:  ";
 		cin>>m[i].ID;
 		cout<<"Enter the category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
@@ -57,7 +56,7 @@ void getInfo(Medicine m[], int &n){
 }
 
 
-void registerMeds(char* fileName,Medicine m[],int n){
+void registerMedicine(char* fileName,Medicine m[],int n){
 	
 	ofstream out(fileName,ios::binary | ios::app);
 	if(out.is_open()){
@@ -70,17 +69,17 @@ void registerMeds(char* fileName,Medicine m[],int n){
       }
 }
 
-void searchMed(char* fileName, int id){
+void searchMedicine(char* fileName, int id){
 	ifstream in(fileName, ios::binary);
 	Medicine m;
-// search for the mediciine based on the input ID	
+// search for the medicine based on the input ID	
 	if (in.is_open()) {
 		in.read((char*)&m,sizeof(m));
 		while (!in.eof()) {
 			if(m.ID=id){
 				cout<<"Medicine is found!\n";
 				cout<<m.ID<<"\t"<<m.category<<"\t";
-				cout<<m.usage.period<<"  "<<m.usage.frequency<<"  "<<m.usage.directions;
+				cout<<m.usage.period<<"\t"<<m.usage.frequency<<"\t"<<m.usage.directions;
 				cout<<m.date.year<<endl;
 				in.close();
 				return;
@@ -117,7 +116,7 @@ void displayInventory(char* fileName){
 
 
 
-void editMed(char *filePath){
+void editMedicine(char *filePath){
 	
 	fstream file(filePath,ios::binary | ios::out | ios::in);
 	int id;
@@ -147,15 +146,14 @@ void editMed(char *filePath){
 		cout<<"Enter the expiry year of the drug:  ";
 		cin>>m1.date.year;
 	
-
-			 file.seekp(file.tellg()-sizeof(m1),ios::beg);
-				file.write((char*)&m1,sizeof(m1));
-				file.close();
-				cout<<"Record is sucessfully updated.\n"; 
-				break;
-			}
-			
+		file.seekp(file.tellg()-sizeof(m1),ios::beg);
+		file.write((char*)&m1,sizeof(m1));
+		file.close();
+		cout<<"Record is sucessfully updated.\n"; 
+		break;
 		}
+			
+	}
 		
 		file.close();
 	}else{
@@ -166,7 +164,7 @@ void editMed(char *filePath){
 
 
 
-void deleteMed(char* fileName, int id){
+void deleteMedicine(char* fileName, int id){
 
 	char* tempFile = "tempFile.db";
 	ofstream out(tempFile, ios::binary);
@@ -213,7 +211,7 @@ char* fileName="inventory.db";
 switch(choice){
 		case 1:
 	                getInfo(m,n);
- 		        registerMeds(fileName,m,n);
+ 		        registerMedicine(fileName,m,n);
 		        break;
 		case 2:
 			displayInventory(fileName);
@@ -222,13 +220,14 @@ switch(choice){
 			int id;
 			cout<<"Enter the ID of the medicine you are looking for:  ";
 			cin>>id;
-			searchMed(fileName, id);
+			searchMedicine(fileName, id);
 			break;
 		case 4:
-			editMed(fileName);
+			editMedicine(fileName);
 			break;
-	}	
+		}	
       }while(ans != 'n');
 
 return 0;
+
 }
