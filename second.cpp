@@ -25,6 +25,7 @@ struct Usage {
 struct Medicine{
 	int ID;
 	char category[100];
+	char medName[100];
 	Usage usage;
 	Expiry date;
 
@@ -38,6 +39,8 @@ void getInfo(Medicine m[], int &n){
 	for(int i=0; i<n; i++){
 		cout<<"Enter the unique ID of the medicine:  ";
 		cin>>m[i].ID;
+		cout<<"Enter the unique name of the medicine:  ";
+		cin>>m[i].medName;
 		cout<<"Enter the category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
 		cin>>m[i].category;
 		cout<<"Enter the usage (Period, Frequency and Directions) of the medicine:  ";
@@ -78,7 +81,7 @@ void searchMedicine(char* fileName, int id){
 		while (!in.eof()) {
 			if(m.ID=id){
 				cout<<"Medicine is found!\n";
-				cout<<m.ID<<"\t"<<m.category<<"\t";
+				cout<<m.ID<<"\t"<<m.medName<<"\t"<<m.category<<"\t";
 				cout<<m.usage.period<<"\t"<<m.usage.frequency<<"\t"<<m.usage.directions;
 				cout<<"\t"<<m.date.year<<endl;
 				in.close();
@@ -102,9 +105,10 @@ void displayInventory(char* fileName){
 	if(in.is_open()){
 		in.read((char*)&m,sizeof(m));
 	while(!in.eof()){
-		cout<<m.ID<<"\t"<<m.category<<"\t";
-		cout<<m.usage.period<<"  "<<m.usage.frequency<<"  "<<m.usage.directions;
-		cout<<m.date.year<<endl;
+		cout<<"ID"<<"\t"<<"NAME"<<"\t"<<"CATEGORY"<<"\t"<<"FREQ."<<"\t"<<"FREQ."<<"\t"<<"DIRECTIONS"<<"\t"<<"EXPIRTY.\n";
+		cout<<m.ID<<"\t"<<m.medName<<"\t"<<m.category<<"\t";
+		cout<<m.usage.period<<"\t"<<m.usage.frequency<<"\t"<<m.usage.directions;
+		cout<<"\t"<<m.date.year<<endl;
 		in.read((char*)&m,sizeof(m));	
 	}
 		in.close();
@@ -112,7 +116,6 @@ void displayInventory(char* fileName){
 		cout<<"File could not be opened!\n";
 	}
 }
-
 
 
 
@@ -131,6 +134,8 @@ void editMedicine(char *filePath){
 		if(m1.ID==m.ID){
 		cout<<"Enter the newest ID of the medicine:  ";
 		cin>>m1.ID;
+		cout<<"Enter the newest name of the medicine:  ";
+		cin>>m1.medName;
 		cout<<"Enter the new category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
 		cin>>m1.category;
 		cout<<"Enter the new usage (Period, Frequency and Directions) of the medicine:  ";
@@ -159,7 +164,6 @@ void editMedicine(char *filePath){
 	}else{
 		cout<<"File cannot be opened.\n";
 	}
-	
 }
 
 
