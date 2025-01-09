@@ -206,6 +206,15 @@ void deleteMedicine(char* fileName, int id){
 }
 
 
+
+void displayHelp(){
+	cout<<"Usage:   this is a usage.\n";
+
+}
+
+
+
+
 int main(){
 
 char ans;
@@ -245,10 +254,15 @@ char* fileName="inventory.db";
 		case 4:
 			editMedicine(fileName);
 			break;
-        case 5:
-            deleteMedicine(fileName, id);
-            break;
-		}
+	        case 5:
+	            deleteMedicine(fileName, id);
+	            break;
+		case 6:
+			displayHelp();
+			break;
+		case 7:
+			exit(0);
+	}
 		cout<<"Do you want to continue? (Y)es/(N)o  ";
 		cin>>ans;
       }while(ans != 'n' && ans != 'N');
