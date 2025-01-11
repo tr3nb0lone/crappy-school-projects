@@ -1,4 +1,3 @@
-#include <ios>
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -24,6 +23,7 @@ struct Usage {
 
 struct Medicine{
 	int ID;
+	char medName[100];
 	char category[100];
 	Usage usage;
 	Expiry date;
@@ -38,9 +38,11 @@ void getInfo(Medicine m[], int &n){
 	for(int i=0; i<n; i++){
 		cout<<"Enter the unique ID of the medicine:  ";
 		cin>>m[i].ID;
-		cout<<"Enter the category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
+		cout<<"Enter the unique name of the medicine:  ";
+		cin>>m[i].medName;
+		cout<<"Enter the category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller, Supplement, Vitamin etc):  ";
 		cin>>m[i].category;
-		cout<<"Enter the usage period of the medicine (Daily, Weekly, Monthly):  ";
+		cout<<"Enter the usage Period of the medicine (Daily, Weekly, Monthly):  ";
 		cin>>m[i].usage.period;
 		cout<<"Enter the frequency for the usage (Once, 2-times OR 3-times):  ";
 		cin>>m[i].usage.frequency;
