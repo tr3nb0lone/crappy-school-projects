@@ -81,7 +81,7 @@ void searchMedicine(char* fileName, int id){
 			if(m.ID=id){
 				system("clear");
 		cout << "\n\t=== Inventory ===\n";
-        cout << left << setw(10) << "ID" << setw(20) << "Category" << setw(15) << "Usage Period"
+        cout << left << setw(10) << "ID" << setw(20) << "Name" << setw(20) << "Category" << setw(15) << "Usage Period"
              << setw(15) << "Frequency" << setw(20) << "Directions" << setw(15) << "Expiry Date" << "\n";
         cout << "--------------------------------------------------------------------------------------------\n";
 
@@ -111,7 +111,7 @@ void displayInventory(char* fileName){
 	if(in.is_open()){
             system("clear");
 		cout << "\n\t\t\t\t=== Inventory ===\n";
-        cout << left << setw(10) << "ID" << setw(20) << "Category" << setw(15) << "Usage Period  "
+        cout << left << setw(10) << "ID" << setw(20) << "Name" << setw(20) << "Category" << setw(15) << "Usage Period  "
              << setw(15) << "Frequency" << setw(20) << "Directions" << setw(15) << "Expiry Date" << "\n";
         cout << "--------------------------------------------------------------------------------------------\n";
 
@@ -144,6 +144,8 @@ void editMedicine(char *filePath){
 		if(m1.ID==m.ID){
 		cout<<"Enter the newest ID of the medicine:  ";
 		cin>>m1.ID;
+		cout<<"Enter the newest name of the medicine:  ";
+		cin>>m1.medName;
 		cout<<"Enter the new category of the medicine (Antifungal, Anti-pain, Antibiotic, Painkiller):  ";
 		cin>>m1.category;
 		cout<<"Enter the new usage (Period, Frequency and Directions) of the medicine:  ";
